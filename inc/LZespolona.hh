@@ -21,7 +21,7 @@ struct  LZespolona {
  * Dalej powinny pojawic sie zapowiedzi definicji przeciazen operatorow
  */
 
-LZespolona sprzezenie (LZespolona Skl1);
+LZespolona sprzezenie (LZespolona Skl1);      
 LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2);
 LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2);
 LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2);
@@ -29,7 +29,7 @@ LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2);
 
 void Wyswietl(LZespolona Skl1);
 
-std::istream &operator>>(std::istream &StrmWe, LZespolona &Lz);
-std::ostream &operator<<(std::ostream &StrmWy, LZespolona Lz);
+std::istream &operator>>(std::istream &StrmWe, LZespolona &Lz); //funkcja pobierajaca liczbe zespolona
+std::ostream &operator<<(std::ostream &StrmWy, LZespolona &Lz); //funkcja zwracajaca liczbe zespolona
 
 #endif

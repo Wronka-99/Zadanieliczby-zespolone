@@ -66,7 +66,7 @@ LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
 
   modul= Skl2.re*Skl2.re+Skl2.im*Skl2.im;
 
-  if(modul>0)
+  if(modul>0)//zabezpieczenie przed dzieleniem przez 0
     {
       
     Wynik.re = (Skl1.re*Skl2.re+Skl1.im*Skl2.im)/modul;
@@ -78,7 +78,7 @@ LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
     else
     {
       std::cout<<"Modul drugiej liczby jest ujemny, badz rowny zero."<< std::endl;
-    }
+    }// stosowny komunikat mowiacy o braku mozliwosci wykonania dzielenia
     
   return Wynik;
 }
@@ -88,18 +88,61 @@ void Wyswietl(LZespolona Skl1)
   cout << "(" << Skl1.re << showpos << Skl1.im << "i" << noshowpos << ")";
 }
 
-ostream &operator<<(ostream &StrmWy, LZespolona Lz)
+ostream &operator<<(ostream &StrmWy, LZespolona &Lz)
 {
   return StrmWy << "(" << Lz.re << showpos << Lz.im << "i)" << noshowpos;
 }
 
 istream &operator>>(istream &StrmWe, LZespolona &Lz)
+
 {
-  StrmWe>>Lz.re>>Lz.im;
+  char znak; //Zmienna sluzaca do sprawdzania znakow
 
-  return StrmWe;
+  StrmWe >> znak; //Wczytanie znaku z klawiatury i przypisanie do zmiennej znak
 
+  if (znak != '(') //Sprawdzenie, czy na poczatku wyrazenia znajduje sie nawias
+  {
+    StrmWe.setstate(ios::failbit); //Komunikat o braku oczekiwanego znaku
+    return StrmWe;
+  }
+  else
+  {
+    StrmWe >> Lz.re; //Wczytanie czesci rzeczywistej
+
+    StrmWe >> znak;
+
+    if ((znak != '+') && (znak != '-')) //Sprawdzenie, czy jest obecny znak plus lub minus
+    {
+      StrmWe.setstate(ios::failbit); //Komunikat o braku oczekiwanego znaku
+      return StrmWe;
+    }
+    else
+    {
+      StrmWe >> Lz.im; //Wczytanie czesci urojonej
+      if (znak == '-')
+      {
+        Lz.im = -(Lz.im); //Z racji tego ze wiemy jaki jest znak musimy zmienic znak
+                          //czesci urojonej bo znamy tylko jej wartosc bez znaku
+      }
+      StrmWe >> znak;
+      if (znak != 'i') //Sprawdzenie czy jest litera i 
+      {
+        StrmWe.setstate(ios::failbit);
+        return StrmWe;
+      }
+      else
+      {
+        StrmWe >> znak;
+        if (znak != ')') //Sprawdzenie czy jest nawias zamykajacy wyrazenie
+        {
+          StrmWe.setstate(ios::failbit);
+          return StrmWe;
+        }
+      }
+    }
+  }
+
+  return StrmWe; // Jesli wszystko bylo poprawnie funkcja zwraca liczbe zespolona
 }
 
-// cosinus
 

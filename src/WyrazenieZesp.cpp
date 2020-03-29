@@ -8,15 +8,7 @@ using namespace std;
  * Tu nalezy zdefiniowac funkcje, ktorych zapowiedzi znajduja sie
  * w pliku naglowkowym.
  */
-LZespolona utworz(double a, double b){
 
-    LZespolona liczba;
-
-    liczba.re=a;
-    liczba.im=b;
-
-    return liczba;
-}
 
 
 void Wyswietlwyrazenie(WyrazenieZesp WyrZ)
@@ -91,4 +83,5 @@ ostream &operator<<(ostream &StrmWy, WyrazenieZesp WyrZ)
   StrmWy << WyrZ.Arg2;
   return StrmWy;
 }
+
 
